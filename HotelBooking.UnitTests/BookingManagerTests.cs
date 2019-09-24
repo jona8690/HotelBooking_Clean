@@ -24,31 +24,7 @@ namespace HotelBooking.UnitTests
             DateTime date = DateTime.Today;
             Assert.Throws<ArgumentException>(() => bookingManager.FindAvailableRoom(date, date));
         }
-
-        [Fact]
-        public void FindAvailableRoom_RoomNotAvailableStart_RoomIdEqualMinusOne()
-        {
-            DateTime date = DateTime.Today.AddDays(10);
-            var roomId = bookingManager.FindAvailableRoom(date, date);
-            Assert.Equal(-1, roomId);
-        }
         
-        [Fact]
-        public void FindAvailableRoom_RoomNotAvailableEnd_RoomIdEqualMinusOne()
-        {
-            DateTime date = DateTime.Today.AddDays(20);
-            var roomId = bookingManager.FindAvailableRoom(date, date);
-            Assert.Equal(-1, roomId);
-        }
-        
-        [Fact]
-        public void FindAvailableRoom_RoomNotAvailableMiddle_RoomIdEqualMinusOne()
-        {
-            DateTime date = DateTime.Today.AddDays(15);
-            var roomId = bookingManager.FindAvailableRoom(date, date);
-            Assert.Equal(-1, roomId);
-        }
-
         [Theory]
         [InlineData(10, 12)]
         [InlineData(10, 15)]
