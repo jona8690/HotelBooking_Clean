@@ -31,13 +31,22 @@ namespace HotelBooking.UnitTests
         [InlineData(12, 15)]
         [InlineData(18, 20)]
         [InlineData(10,20)]
-        public void FindAvailableroom_RoomNotAvailable_RoomIdEqualMinusOne(int daysInFutureStart, int daysInFutureEnd)
+        public void FindAvailableRoom_RoomNotAvailable_RoomIdEqualMinusOne(int daysInFutureStart, int daysInFutureEnd)
         {
             DateTime date = DateTime.Today.AddDays(daysInFutureStart);
             DateTime date2 = DateTime.Today.AddDays(daysInFutureEnd);
             
             var roomId = bookingManager.FindAvailableRoom(date, date2);
             Assert.Equal(-1, roomId);
+        }
+
+        [Fact]
+        public void FindAvailableRoom_StartDateHigherThanEndDate_ThrowsArgumentException()
+        {
+            var startDate = DateTime.Today.AddDays(5);
+            var endDate = DateTime.Today.AddDays(1);
+
+            Assert.Throws<ArgumentException>( () => bookingManager.FindAvailableRoom(startDate, endDate));
         }
         
         [Fact]
