@@ -25,6 +25,30 @@ namespace HotelBooking.UnitTests
         }
 
         [Fact]
+        public void FindAvailableRoom_RoomNotAvailableStart_RoomIdEqualMinusOne()
+        {
+            DateTime date = DateTime.Today.AddDays(10);
+            var roomId = bookingManager.FindAvailableRoom(date, date);
+            Assert.Equal(-1, roomId);
+        }
+        
+        [Fact]
+        public void FindAvailableRoom_RoomNotAvailableEnd_RoomIdEqualMinusOne()
+        {
+            DateTime date = DateTime.Today.AddDays(20);
+            var roomId = bookingManager.FindAvailableRoom(date, date);
+            Assert.Equal(-1, roomId);
+        }
+        
+        [Fact]
+        public void FindAvailableRoom_RoomNotAvailableMiddle_RoomIdEqualMinusOne()
+        {
+            DateTime date = DateTime.Today.AddDays(15);
+            var roomId = bookingManager.FindAvailableRoom(date, date);
+            Assert.Equal(-1, roomId);
+        }
+
+        [Fact]
         public void FindAvailableRoom_RoomAvailable_RoomIdNotMinusOne()
         {
             // Arrange
