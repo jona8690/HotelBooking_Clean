@@ -50,6 +50,14 @@ namespace HotelBooking.UnitTests
             // Assert
             Assert.NotEqual(-1, roomId);
         }
-
+        [Fact]
+        public void FindAvailableRoom_DateInThePast_ThrowsArgumentException()
+        {
+            DateTime startDate = DateTime.Today.AddDays(-1);
+            DateTime endDate = DateTime.Today.AddDays(5);
+         
+            Assert.Throws<ArgumentException>(() => bookingManager.FindAvailableRoom(startDate, endDate));
+            
+        }
     }
 }
