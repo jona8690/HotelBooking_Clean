@@ -17,7 +17,7 @@ namespace HotelBooking.UnitTests
             IRepository<Room> roomRepository = new FakeRoomRepository();
             bookingManager = new BookingManager(bookingRepository, roomRepository);
         }
-
+        
         [Fact]
         public void FindAvailableRoom_StartDateNotInTheFuture_ThrowsArgumentException()
         {
@@ -27,10 +27,14 @@ namespace HotelBooking.UnitTests
         
         [Theory]
         [InlineData(10, 12)]
+        [InlineData(8, 10)]
+        [InlineData(8, 12)]
         [InlineData(10, 15)]
         [InlineData(12, 15)]
         [InlineData(18, 20)]
         [InlineData(10,20)]
+        [InlineData(19,25)]
+        [InlineData(20,25)]
         public void FindAvailableRoom_RoomNotAvailable_RoomIdEqualMinusOne(int daysInFutureStart, int daysInFutureEnd)
         {
             DateTime date = DateTime.Today.AddDays(daysInFutureStart);
