@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TaskSchedular;
 
 namespace HotelBooking.WebApi
 {
@@ -29,6 +30,13 @@ namespace HotelBooking.WebApi
             services.AddScoped<IRepository<Booking>, BookingRepository>();
             services.AddScoped<IBookingManager, BookingManager>();
             services.AddTransient<IDbInitializer, DbInitializer>();
+
+			services.AddSingleton<IScheduledTask, Core.Tasks.InvalidateExpiredBookings>();
+
+			services.AddScheduler((sender, args) =>
+			{
+				args.SetObserved();
+			});
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
