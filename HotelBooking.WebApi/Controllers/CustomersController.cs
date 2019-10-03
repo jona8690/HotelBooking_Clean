@@ -39,5 +39,20 @@ namespace HotelBooking.WebApi.Controllers
             repository.Add(input);
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            repository.Remove(id);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Customer input)
+        {
+            input.Id = id;
+            repository.Edit(input);
+            return Ok();
+        }
     }
 }
