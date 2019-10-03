@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using HotelBooking.Core;
+using HotelBooking.Infrastructure;
 
 namespace HotelBooking.UnitTests.Fakes
 {
@@ -10,11 +11,6 @@ namespace HotelBooking.UnitTests.Fakes
         private readonly HotelBookingContext db;
 
         public FakeCustomerRepository(HotelBookingContext context)
-        {
-            db = context;
-        }
-
-        public CustomerRepository(HotelBookingContext context)
         {
             db = context;
         }
