@@ -26,12 +26,18 @@ namespace HotelBooking.WebApi.Controllers
         public IActionResult Get(int id)
         {
             var item = repository.Get(id);
-            
+
             if (item == null)
                 return NotFound();
 
             return Ok(item);
         }
 
+        [HttpPost]
+        public IActionResult Post(Customer input)
+        {
+            repository.Add(input);
+            return Ok();
+        }
     }
 }
