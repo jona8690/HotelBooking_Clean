@@ -68,7 +68,7 @@ namespace HotelBooking.UnitTests
         public void GetById_RoomExists_ReturnsIActionResultWithCustomer()
         {
             // Act
-            var result = controller.Get(3) as ObjectResult;
+            var result = controller.Get(2) as ObjectResult;
             var customer = result.Value as Customer;
             var customerId = customer.Id;
 
