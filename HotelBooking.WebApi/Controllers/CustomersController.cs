@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using HotelBooking.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -23,6 +24,7 @@ namespace HotelBooking.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Customer), StatusCodes.Status200OK)]
         public IActionResult Get(int id)
         {
             var item = repository.Get(id);
