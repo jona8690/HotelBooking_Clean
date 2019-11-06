@@ -15,6 +15,8 @@ namespace HotelBooking.UnitTests
 		private DateTime BookingEnd;
 		private int RoomId;
 
+		private Exception ThrownException;
+
 		public BookingSteps()
 		{
 			DateTime start = DateTime.Today.AddDays(10);
@@ -39,7 +41,13 @@ namespace HotelBooking.UnitTests
         [When(@"i try to book")]
         public void WhenITryToBook()
         {
-			this.RoomId = bookingManager.FindAvailableRoom(BookingStart, BookingEnd);
+			try
+			{
+				this.RoomId = bookingManager.FindAvailableRoom(BookingStart, BookingEnd);
+			} catch(Exception e)
+			{
+				this.ThrownException = e;
+			}
 		}
         
         [Then(@"booking manager should return a room id")]
@@ -51,7 +59,7 @@ namespace HotelBooking.UnitTests
         [Then(@"booking manager should throw Argument Exception")]
         public void ThenBookingManagerShouldThrowArgumentException()
         {
-            ScenarioContext.Current.Pending();
+			Assert.True(this.ThrownException is ArgumentException);
         }
         
         [Then(@"booking manager should return (.*)")]
