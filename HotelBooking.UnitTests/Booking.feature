@@ -1,11 +1,39 @@
 ﻿Feature: Booking
-	In order to avoid silly mistakes
-	As a math idiot
-	I want to be told the sum of two numbers
+	In order to ensure people cant book rooms when already occuied.
+	Our hotel is fully booked between 10 and 20 days in the future.
 
-@mytag
-Scenario: Add two numbers
-	Given I have entered 50 into the calculator
-	And I have entered 70 into the calculator
-	When I press add
-	Then the result should be 120 on the screen
+Scenario: Start date after, end date after
+	Given That I check in 21 days
+	And That I check out in 25
+	When i try to book
+	The booking manager should return a room id
+
+Scenario: Start date befre, end date before
+	Given That I check in 2 days
+	And That I check out in 7
+	When i try to book
+	The booking manager should return a room id
+
+Scenario: Start date occupied, end date before
+	Given That I check in 15 days
+	And That I check out in 7
+	When i try to book
+	The booking manager should return -1
+
+Scenario: Start date before, end date occupied
+	Given That I check in 7 days
+	And That I check out in 15
+	When i try to book
+	The booking manager should return -1
+
+Scenario: Start date after, end date occupied
+	Given That I check in 22 days
+	And That I check out in 15
+	When i try to book
+	The booking manager should return -1
+
+Scenario: Start date before, end date after
+	Given That I check in 7 days
+	And That I check out in 22
+	When i try to book
+	The booking manager should return -1
